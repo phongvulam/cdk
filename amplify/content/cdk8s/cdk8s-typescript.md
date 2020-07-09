@@ -47,7 +47,7 @@ Since TypeScript is a compiled language, we will need to compile `.ts` files to
 background like this:
 
 ```shell
-$ npm run watch
+npm run watch
 ```
 
 ## Apps & Charts
@@ -109,7 +109,7 @@ contains
 resources inspired by [hello-kubernetes](https://github.com/paulbouwer/hello-kubernetes) project.
 
 
-{{<highlight typescript "hl_lines=4-5 12-44">}}
+{{<highlight typescript "hl_lines=4-5 12-42">}}
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
 

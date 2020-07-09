@@ -2,8 +2,7 @@ import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
 /** imported constructs */
 import { Deployment, Service, IntOrString } from './imports/k8s';
-// import { Deployment, Service } from "../lib";
-import { PodinfoContainer } from "./podinfo";
+import { Redis } from 'cdk8s-redis';
 
 export class MyChart extends Chart {
   constructor(scope: Construct, name: string) {
@@ -23,7 +22,7 @@ export class MyChart extends Chart {
 
     new Deployment(this, 'deployment', {
       spec: {
-        replicas: 2,
+        replicas: 3,
         selector: {
           matchLabels: label
         },
@@ -40,6 +39,12 @@ export class MyChart extends Chart {
           }
         }
       }
+    });
+    
+    /** Redis construct for cdk8s */
+    // const redis = new Redis(this, 'my-redis', {
+    new Redis(this, 'my-redis', {
+      slaveReplicas: 4
     });
 
   }
