@@ -158,8 +158,10 @@ function verify_prerequisites_resources() {
     _logger "[+] Verify ACCOUNT_ID & AWS_REGION"
     export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
     export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
+    export ROLE_NAME="eks-admin-role"
     test -n "$ACCOUNT_ID" && echo ACCOUNT_ID is "$ACCOUNT_ID" || echo ACCOUNT_ID is not set
     test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
+    test -n "$ROLE_NAME" && echo  ROLE_NAME  is "$ROLE_NAME"  || echo ROLE_NAME is not set
 
     _logger "[+] Save ACCOUNT_ID & AWS_REGION to .bash_profile"
     echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
