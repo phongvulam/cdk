@@ -97,6 +97,7 @@ function upgrade_nodejs() {
     npm install -g typescript@latest
     npm install -g aws-cdk --force
     npm i -g cdk8s-cli
+    brew install aws/tap/copilot-cli
     node -v 
     npm -v 
 }
@@ -159,6 +160,7 @@ function verify_prerequisites_resources() {
     export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
     export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
     export ROLE_NAME="eks-admin-role"
+    export CLUSTER_NAME="EKS-Cluster"
     test -n "$ACCOUNT_ID" && echo ACCOUNT_ID is "$ACCOUNT_ID" || echo ACCOUNT_ID is not set
     test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
     test -n "$ROLE_NAME" && echo  ROLE_NAME  is "$ROLE_NAME"  || echo ROLE_NAME is not set
