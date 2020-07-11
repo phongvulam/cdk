@@ -40,7 +40,7 @@ This will perform the following:
 3. Import all Kubernetes API objects
 4. Compile the TypeScript to JavaScript
 
-## Watch
+### Watch
 
 Since TypeScript is a compiled language, we will need to compile `.ts` files to
 `.js` in order to execute our CDK app. You can do that continuously in the
@@ -50,10 +50,9 @@ background like this:
 npm run watch
 ```
 
-## Apps & Charts
+### Apps & Charts: `main.ts`
 
-At this point, if you open `main.ts` you will see something like this:
-
+{{%expand "🤓 At this point, if you open main.ts you will see something like this:" %}}
 ```ts
 import { Construct } from 'constructs';
 import { App, Chart } from 'cdk8s';
@@ -71,6 +70,7 @@ const app = new App();
 new MyChart(app, 'podinfo');
 app.synth();
 ```
+{{% /expand%}}
 
 Apps are structured as a tree of **constructs**, which are composable units of
 abstraction. We will learn more about constructs soon.
@@ -108,6 +108,7 @@ contains
 [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment)
 resources inspired by [hello-kubernetes](https://github.com/paulbouwer/hello-kubernetes) project.
 
+> 🤓 At this point, if you open `main.ts` you will see something like this:
 
 {{<highlight typescript "hl_lines=4-5 12-42">}}
 import { Construct } from 'constructs';
@@ -161,7 +162,9 @@ app.synth();
 {{</highlight>}}
 
 Now, after we execute `npm run synth`, this will be contents of
-`podinfo.k8s.yaml`:
+`podinfo.k8s.yaml`
+
+{{%expand "🤓 podinfo.k8s.yaml" %}}
 
 ```yaml
 apiVersion: v1
@@ -196,6 +199,7 @@ spec:
           ports:
             - containerPort: 8080
 ```
+{{% /expand%}}
 
 The manifest synthesized by your app is ready to be applied to any Kubernetes
 cluster using standard tools like `kubectl apply`:
@@ -205,3 +209,63 @@ kubectl apply -f dist/podinfo.k8s.yaml
 ```
 
 > `curl a1312b596e12c411885d4c349a5b508b-923793524.ap-southeast-2.elb.amazonaws.com`
+
+## 🤓 Basic implementation of a Redis construct for CDK8s"
+
+{{<highlight typescript "hl_lines=6 45-48">}}
+import { Construct } from 'constructs';
+import { App, Chart } from 'cdk8s';
+
+/** imported constructs */
+import { Deployment, Service, IntOrString } from './imports/k8s';
+import { Redis } from 'cdk8s-redis';
+
+export class MyChart extends Chart {
+  constructor(scope: Construct, name: string) {
+    super(scope, name);
+
+    // define resources here
+    const label = { app: 'podinfo-k8s' };
+
+    /** Deploys hello-kubernetes as a Service behind a LoadBalancer */
+    new Service(this, 'service', {
+      spec: {
+        type: 'LoadBalancer',
+        ports: [ { port: 80, targetPort: IntOrString.fromNumber(8080) } ],
+        selector: label
+      }
+    });
+
+    new Deployment(this, 'deployment', {
+      spec: {
+        replicas: 3,
+        selector: {
+          matchLabels: label
+        },
+        template: {
+          metadata: { labels: label },
+          spec: {
+            containers: [
+              {
+                name: 'podinfo-kubernetes',
+                image: 'paulbouwer/hello-kubernetes:1.8',
+                ports: [ { containerPort: 8080 } ]
+              }
+            ]
+          }
+        }
+      }
+    });
+    
+    /** Redis construct for cdk8s */
+    new Redis(this, 'my-redis', {
+      slaveReplicas: 4
+    });
+
+  }
+}
+
+const app = new App();
+new MyChart(app, 'podinfo');
+app.synth();
+{{</highlight>}}
