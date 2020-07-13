@@ -2,13 +2,6 @@
 
 ###### _Develop, Release and Operate Container Apps on AWS._
 
-<<<<<<< HEAD
-- **Architecture**
-
-![devsecops architecture](../AWSArchitecture.jpg)
-
-- **Documentation**: [https://aws.github.io/copilot-cli/](https://aws.github.io/copilot-cli/)
-=======
 - Initial the ECS `Application` & `Environment`
 
 ```
@@ -25,8 +18,11 @@ copilot svc deploy --env production
 copilot svc logs --follow
 ```
 
-* **Documentation**: [https://aws.github.io/copilot-cli/](https://aws.github.io/copilot-cli/)
->>>>>>> 3994835b5be14b57ee5a0e5fa97397c4907e5d8c
+- **Architecture**
+
+![devsecops architecture](../AWSArchitecture.jpg)
+
+- **Documentation**: [https://aws.github.io/copilot-cli/](https://aws.github.io/copilot-cli/)
 
 The AWS Copilot CLI is a tool for developers to create, release and manage production ready containerized applications on Amazon ECS and AWS Fargate.
 From getting started, pushing to a test environment and releasing to production, Copilot helps you through the entire life of your app development.
