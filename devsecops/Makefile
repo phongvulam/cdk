@@ -22,7 +22,6 @@ init-app:
   		--dockerfile ${DOCKER_PATH}     \
 		--profile default 				\
 		--port ${PROJECT_PORT} 			\
-		--yes
 
 docker:
 	@echo ${CHECK_DOCKER}
