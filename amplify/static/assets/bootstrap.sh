@@ -131,8 +131,13 @@ function install_linuxbrew() {
 }
 
 function install_kubernetes_tools() {
-    _logger "[+] Install kubectl CLI (Kubernetes 1.16) from https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html"
-    sudo curl --silent --location -o /usr/local/bin/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl
+    KUBECTL_VERSION="1.17.7/2020-07-08"
+    # AWS_IAM_AUTH_VERSION="1.17.7/2020-07-08"
+    # PACKER_VERSION="3.4.4"
+    # HELMSMAN_VERSION="3.4.4"
+
+    _logger "[+] Install kubectl CLI (Kubernetes 1.17) from https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html"
+    sudo curl --silent --location -o /usr/local/bin/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
     sudo chmod +x /usr/local/bin/kubectl
     kubectl version --short --client
 
@@ -153,6 +158,16 @@ function install_kubernetes_tools() {
     echo 'source <(helm completion bash)' >>~/.bash_profile
     echo 'alias h=helm' >>~/.bash_profile
     echo 'complete -F __start_helm h' >>~/.bash_profile
+
+    # ## Install Helmsman
+    # curl -L https://github.com/Praqma/helmsman/releases/download/v${HELMSMAN_VERSION}/helmsman_${HELMSMAN_VERSION}_linux_amd64.tar.gz | tar zx && \
+    # chmod +x helmsman && \
+    # mv ./helmsman /usr/local/bin/helmsman
+
+    # ## Install aws-iam-authenticator
+    # curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTH_VERSION}/bin/linux/amd64/aws-iam-authenticator && \
+    # chmod +x ./aws-iam-authenticator && \
+    # mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator 
 }
 
 function verify_prerequisites_resources() {
