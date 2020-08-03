@@ -168,6 +168,11 @@ function install_kubernetes_tools() {
     # curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/${AWS_IAM_AUTH_VERSION}/bin/linux/amd64/aws-iam-authenticator && \
     # chmod +x ./aws-iam-authenticator && \
     # mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator 
+
+    sudo curl -Lo /usr/local/bin/copilot https://github.com/aws/copilot-cli/releases/download/v0.1.0/copilot-linux-v0.1.0  \
+    && sudo chmod +x /usr/local/bin/copilot \
+    && copilot --help
+
 }
 
 function verify_prerequisites_resources() {
