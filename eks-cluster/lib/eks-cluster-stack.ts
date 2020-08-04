@@ -17,7 +17,14 @@ export class EksClusterStack extends cdk.Stack {
      * Step 1. Using an existing VPC or create a new one for our EKS Cluster
      */  
     const vpc = getOrCreateVpc(this);
-    
+
+    // /**
+    //  * Create a new VPC with single NAT Gateway
+    //  */
+    // const vpc = new ec2.Vpc(this, 'EKS-VPC', {
+    //   cidr: '10.20.0.0/18',
+    //   natGateways: 1
+    // });
     
     /**
     * Step 2. Creating a new EKS Cluster
@@ -41,7 +48,7 @@ export class EksClusterStack extends cdk.Stack {
       defaultCapacityInstance: new ec2.InstanceType('t3.medium'),
       mastersRole: clusterAdmin,
       outputClusterName: true,
-      version: eks.KubernetesVersion.V1_16,
+      version: eks.KubernetesVersion.V1_17,
     });
     
   }
