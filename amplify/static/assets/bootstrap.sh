@@ -169,10 +169,20 @@ function install_kubernetes_tools() {
     # chmod +x ./aws-iam-authenticator && \
     # mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator 
 
+    _logger "[+] Installing ECS copilot ..."
     sudo curl -Lo /usr/local/bin/copilot https://github.com/aws/copilot-cli/releases/download/v0.1.0/copilot-linux-v0.1.0  \
     && sudo chmod +x /usr/local/bin/copilot \
     && copilot --help
 
+    _logger "[+] Installing EKS K9s ..."
+    K9S_VERSION=0.21.5
+    K9S_TAR_FILENAME=k9s_$(uname -s)_$(uname -m).tar.gz
+    curl -o /tmp/$K9S_TAR_FILENAME -L -k https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/$K9S_TAR_FILENAME
+    tar -xvf /tmp/$K9S_TAR_FILENAME -C /tmp/
+    sudo mv /tmp/k9s /usr/local/bin/k9s
+    sudo chmod +x /usr/local/bin/k9s
+
+    _logger "[+] Finished the install_kubernetes_tools!"
 }
 
 function verify_prerequisites_resources() {
