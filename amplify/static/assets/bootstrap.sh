@@ -48,11 +48,16 @@ function upgrade_existing_packages() {
     _logger "[+] Upgrading Python pip and setuptools"
     python3 -m pip install --upgrade pip setuptools --user
 
-    _logger "[+] Installing latest AWS CLI"
+    _logger "[+] Installing latest pip"
     # _logger "[+] Installing pipx, and latest AWS CLI"
     # python3 -m pip install --user pipx
     # pipx install awscli
     python3 -m pip install --upgrade --user awscli && hash -r
+
+    _logger "[+] Installing latest AWS-CLI 2"
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
 }
 
 function upgrade_python() {
