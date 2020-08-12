@@ -56,12 +56,12 @@ function upgrade_existing_packages() {
 }
 
 function upgrade_python() {
-    _logger "[+] Upgrade Python 3.7"
+    _logger "[+] Upgrade Python 3.8"
     brew install python3
-    echo 'alias python="python3.7"' >> ~/.bash_profile
-    echo 'alias python3="python3.7"' >> ~/.bash_profile
-    echo 'alias pip="pip3.7"' >> ~/.bash_profile
-    echo 'alias pip3="pip3.7"' >> ~/.bash_profile
+    echo 'alias python="python3.8"' >> ~/.bash_profile
+    echo 'alias python3="python3.8"' >> ~/.bash_profile
+    echo 'alias pip="pip3.8"' >> ~/.bash_profile
+    echo 'alias pip3="pip3.8"' >> ~/.bash_profile
     
     # _logger "[+] Upgrade Python 3.8"
     # brew install pyenv
@@ -211,6 +211,15 @@ function verify_prerequisites_resources() {
     aws sts get-caller-identity --query Arn | grep eks-admin-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 }
 
+function install_cdk_microservices_labs() {
+    _logger "[+] install_cdk_microservices_labs"
+    sudo yum update -y
+    sudo yum remove -y java-1.7.0-openjdk && sudo yum install -y java-1.8.0-openjdk-devel
+    
+    git clone --recurse-submodules https://github.com/aws-samples/cdk-microservices-labs.git
+}
+
+
 function main() {
     # upgrade_ebs_storage
     install_linuxbrew
@@ -225,6 +234,8 @@ function main() {
     install_kubernetes_tools
 
     verify_prerequisites_resources
+
+    install_cdk_microservices_labs
 
     echo -e "${RED} [!!!!!!!!!] Open up a new terminal to reflect changes ${NC}"
     _logger "[+] Restarting Shell to reflect changes"
