@@ -15,7 +15,7 @@ CURRENT_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/avail
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
-export CDK_VERSION='1.27.0'
+export CDK_VERSION='1.59.0'
 
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info"
 
