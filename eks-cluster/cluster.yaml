@@ -1,0 +1,60 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+name: cluster
+region: ap-southeast-1
+version: "1.17"
+
+vpc:
+subnets:
+    private:
+    ap-southeast-1a:
+        id: "Quick-Start-VPC-PrivateSubnet1AID"
+    ap-southeast-1b:
+        id: "Quick-Start-VPC-PrivateSubnet2AID"
+    ap-southeast-1c:
+        id: "Quick-Start-VPC-PrivateSubnet3AID"
+    public:
+    ap-southeast-1a:
+        id: "Quick-Start-VPC-PublicSubnet1ID"
+    ap-southeast-1b:
+        id: "Quick-Start-VPC-PublicSubnet2ID"
+    ap-southeast-1c:
+        id: "Quick-Start-VPC-PublicSubnet3ID"
+
+cloudWatch:
+    clusterLogging:
+        enableTypes:
+            - "audit"
+            - "authenticator"
+            - "api"
+            - "controllerManager"
+            - "scheduler"
+
+nodeGroups:
+- name: ng
+    instanceType: m5.xlarge
+    desiredCapacity: 1
+    privateNetworking: true
+    volumeSize: 100
+    volumeType: gp2
+    volumeEncrypted: true
+    ssh:
+    publicKeyPath: ~/.ssh/id_rsa.pub
+    iam:
+    attachPolicyARNs:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+    withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        ebs: true
+        fsx: true
+        efs: true
+        albIngress: true
+        xRay: true
+        cloudWatch: true
