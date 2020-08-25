@@ -102,6 +102,7 @@ function upgrade_nodejs() {
     npm install -g yarn
     npm install -g typescript@latest
     npm install -g aws-cdk@${CDK_VERSION} --force
+    # npx npm-check-updates -u
     npm i -g cdk8s-cli
     brew install aws/tap/copilot-cli
     node -v 
@@ -187,6 +188,11 @@ function install_kubernetes_tools() {
     tar -xvf /tmp/$K9S_TAR_FILENAME -C /tmp/
     sudo mv /tmp/k9s /usr/local/bin/k9s
     sudo chmod +x /usr/local/bin/k9s
+
+    _logger "[+] Installing eksctl"
+    brew tap weaveworks/tap 
+    brew install kubernetes-cli kubernetes-helm weaveworks/tap/eksctl
+
 
     _logger "[+] Finished the install_kubernetes_tools!"
 }
