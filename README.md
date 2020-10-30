@@ -1,33 +1,33 @@
-# Serverless Data Lake on AWS
+# Infra is/as Code using Cloud Development Kit (CDK)
 
-1. Prerequisites
+1. [x] Prerequisites: installing [Node.js](https://nodejs.org/en/download/) & [Hugo](https://gohugo.io/getting-started/installing/)
 
 ```
-brew install node
+brew install node@12
 brew install hugo
 ```
 
 2. Git clone
 
 ```
-git clone https://github.com/nnthanh101/eks-workshop.git
+git clone https://github.com/nnthanh101/cdk.git
 
-cd eks-workshop
+cd cdk/amplify
 npm run theme
 ```
 
-# Run Hugo
+3. Run Hugo
 
 ```
 npm start
 ```
 
-> http://localhost:8080
+`http://localhost:8080`
 
-# Submodule
+
+> Note: Submodule
 
 ```
 git submodule add https://github.com/nnthanh101/hugo-theme-learn themes/hugo-theme-learn
+rm -rf .git/modules/themes/hugo-theme-learn .git/modules/hugo-theme-learn
 ```
-
-# rm -rf .git/modules/themes/hugo-theme-learn .git/modules/hugo-theme-learn
