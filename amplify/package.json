@@ -1,14 +1,14 @@
 {
-	"name": "modernapps",
+	"name": "cdk-workshop",
 	"version": "1.0.0",
-	"homepage": "https://github.com/nnthanh101/aws-cdk#readme",
+	"homepage": "https://github.com/nnthanh101/cdk#readme",
 	"bugs": {
-		"url": "https://github.com/nnthanh101/aws-cdk/issues"
+		"url": "https://github.com/nnthanh101/cdk/issues"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/nnthanh101/aws-cdk.git"
+		"url": "git+https://github.com/nnthanh101/cdk.git"
 	},
 	"scripts": {
 		"theme": "git submodule init && git submodule update --checkout --recursive",
