@@ -1,0 +1,21 @@
+image: nnthanh101/deploy-aws
+
+stages:
+  - test
+  - deploy
+  - destroy
+
+test: 
+  script:
+  - aws cloudformation validate-template --template-body file://BlueprintStack-cfn.yaml
+  # any return other than 0 from $? in bash stops the next stage
+
+deploy:
+  script:
+  - aws cloudformation deploy --stack-name BlueprintStack --template-file BlueprintStack-cfn.yaml --no-fail-on-empty-changeset
+#  - ./deploy.sh
+ 
+destroy:
+  script:
+  - aws cloudformation delete-stack --stack-name BlueprintStack
+  when: manual

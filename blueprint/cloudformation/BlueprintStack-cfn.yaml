@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: BlueprintStack
+Resources:
+
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: VPC-BlueprintStack
+
+  mySUBNET:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1a
+      CidrBlock: 10.0.0.0/24
+      VpcId: !Ref myVPC
+      Tags:
+        - Key: Name
+          Value: SUBNET-BlueprintStack
+
+  myTGW:
+    Type: "AWS::EC2::TransitGateway"
+    Properties:
+      AmazonSideAsn: 65000
+      Description: "TGW BlueprintStack"
+      AutoAcceptSharedAttachments: "disable"
+      DefaultRouteTableAssociation: "enable"
+      DnsSupport: "enable"
+      VpnEcmpSupport: "enable"
+      Tags:
+        - Key: Name
+          Value: TGW-BlueprintStack
+
+  myATTACHMENT:        
+    Type: AWS::EC2::TransitGatewayAttachment
+    Properties: 
+      SubnetIds: 
+        - !Ref mySUBNET
+      TransitGatewayId: !Ref myTGW
+      VpcId: !Ref myVPC
+      Tags: 
+        - Key: Name
+          Value: myVPC-attach
+
+Outputs:
+  myVPC:
+    Description: BlueprintStack VPC
+    Value: !Ref myVPC
+    Export:
+      Name: !Sub "${AWS::StackName}-VPCID"
+  
+  mySUBNET:
+    Description: BlueprintStack Subnet
+    Value: !Ref mySUBNET
+    Export:
+      Name: !Sub "${AWS::StackName}-SUBNET"
+  
+  myTGW:
+    Description: BlueprintStack TGW
+    Value: !Ref myTGW
+    Export:
+      Name: !Sub "${AWS::StackName}-TGW"
+    
