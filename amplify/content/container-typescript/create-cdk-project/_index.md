@@ -13,8 +13,8 @@ CloudFormation template for the starter app and how to deploy your app into your
 > **Step 1.** Creating a CDK application
 
 ```bash
-mkdir eks-cluster
-cd eks-cluster
+mkdir aws-infrastructure
+cd aws-infrastructure
 
 cdk init --language typescript
 ```
