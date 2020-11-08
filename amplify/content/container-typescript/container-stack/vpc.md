@@ -8,7 +8,7 @@ pre= "<b>2.2.1. </b>"
 ### Step 1. Add a **VPC** to your **EKS** stack:
 
 * 🎯 Define the **VPC** that is used for EKS Cluster.
-    * **1.** Add an **import** statement at the beginning of `eks-cluster/lib/eks-cluster-stack.ts`
+    * **1.** Add an **import** statement at the beginning of `aws-infrastructure/lib/aws-infrastructure-stack.ts`
     * **2.** Create an **aws-ec2.Vpc** ~~EKS-VPC~~ 
         * [x] VPC Name: ~~EKS-VPC~~
         * [x] VPC CIDR: ~~10.10.0.0/16~~
@@ -31,7 +31,7 @@ pre= "<b>2.2.1. </b>"
   CODECOMMIT_REPOSITORY="eks-codecommit-repo"
   ```
 
-{{<highlight typescript "hl_lines=3-4 12 14-17 22-52">}}
+{{<highlight typescript "hl_lines=3-4 12 14-22 27-57">}}
 import * as cdk from '@aws-cdk/core';
 
 import * as dotenv from 'dotenv';
@@ -48,6 +48,11 @@ export class EksClusterStack extends cdk.Stack {
     /**
      * Step 1. use an existing VPC or create a new one for our EKS Cluster
      */  
+    /** DEBUG purpose ONLY!!! */
+    // const vpc = new ec2.Vpc(this, 'Development-VPC', {
+    //   cidr: '10.10.0.0/18',
+    //   natGateways: 0
+    // })
     const vpc = getOrCreateVpc(this);
     
   }
@@ -94,14 +99,14 @@ Save your code, and let's take a quick look at the `cdk diff` before we deploy:
 ```
 npm run build
 
-cdk diff EksClusterStack
+cdk diff $AWS_INFRASTRUCTURE_STACK
 ```
 
 
 ## Step 3. Let's deploy
 
 ```
-cdk deploy EksClusterStack
+cdk deploy $AWS_INFRASTRUCTURE_STACK
 ```
 
 > {{%expand "✍️ Deploy in another AWS_REGION" %}} 

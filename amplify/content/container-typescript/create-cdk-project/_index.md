@@ -31,8 +31,8 @@ npm run watch
 > **Step 3.** Explore Your Project Directory 
 
 ```bash
-npm install -g tree-cli
-tree -l 2 -o project-directory.txt
+# npm install -g tree-cli
+# tree -l 2 -o project-directory.txt
 ```
 
 {{%expand "✍️ Project Structure" %}}
@@ -62,10 +62,10 @@ cdk synth
 > **Step 5.** Bootstrapping an environment then Deploy
 
 ```bash
-cdk bootstrap
-# cdk bootstrap aws://$ACCOUNT_ID/$AWS_REGION
+# cdk bootstrap
+cdk bootstrap aws://${AWS_ACCOUNT}/${AWS_REGION}
 
-cdk deploy EksClusterStack
+cdk deploy $AWS_INFRASTRUCTURE_STACK
 ```
 
 {{%expand "✍️ Bootstrapping an Environment" %}}
