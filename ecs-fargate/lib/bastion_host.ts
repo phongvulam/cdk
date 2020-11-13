@@ -17,6 +17,11 @@ export class BastonHostStack extends core.Stack {
     super(parent, name, {
       ...props,
     });
+    
+    /** 
+     * EC2 AMI: Amazon Linux 2 vs. Ubuntu 
+     * EC2 instance type: t3.small
+     */
     const host = new ec2.BastionHostLinux(this, 'BastionHost', {
         vpc: props.vpc,
         subnetSelection: { subnetType: ec2.SubnetType.PUBLIC },

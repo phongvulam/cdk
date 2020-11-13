@@ -15,19 +15,21 @@ import { applicationMetaData } from "../configurations/config";
 
 const app = new cdk.App();
 
-// FIXME ...
 new EcsFargateStack(app, 'EcsFargateStack');
 
+/** Step 1. VPC */
 const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
     maxAzs: applicationMetaData.maxAzs,
     cidr: applicationMetaData.cidr
  });
  
+ /** Step 2. BastionHost?JumpBox EC2 */
  const bastionHost = new BastonHostStack(app,applicationMetaData.bastionHostStackName, {
    vpc: vpc.vpc,
    openSSHfrom: applicationMetaData.openSSHfrom
  })
  
+ /** Step 3. ECS Cluster */
  const cluster = new EcsClusterStack(
    app,
    applicationMetaData.ecsClusterStackName,
@@ -37,6 +39,7 @@ const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
    }
  );
  
+ /** Step 4. DynamoDB - CRUD */
  const dynamoDB = new DynamoDBStack(
    app, 
    applicationMetaData.dynamoDBStackName,
@@ -47,6 +50,7 @@ const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
    partitionKeyName: applicationMetaData.partitionKeyName
  });
  
+ /** Step 5. ECS Service >> DNS-IP:Port */
  const ecsService = new EcsServiceStack(
    app,
    applicationMetaData.ECSServiceStackName,
@@ -63,6 +67,7 @@ const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
    }
  );
  
+ /** Step 6. Cognito */
  const cognito = new CognitoStack(
    app, 
    applicationMetaData.cognitoStackName,
@@ -81,6 +86,7 @@ const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
  });
  
  
+ /** Step 7. API-Gateway */
  const apiGateway = new APIGatewayStack(
    app,
    applicationMetaData.apiGatewayStackName,
@@ -97,6 +103,7 @@ const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
    }
  )
  
+ /** Step 8 */
  bastionHost.addDependency(vpc);
  cluster.addDependency(vpc);
  ecsService.addDependency(cluster);

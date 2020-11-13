@@ -56,7 +56,10 @@ export class EcsServiceStack extends core.Stack {
       })
     );
 
-    /* creating NLB/ALB fronted ECS service */
+    /**
+     * Creating NLB/ALB fronted ECS service.
+     * FIXME: ALB & NLB
+     */
     this.service = new ecsPatterns.NetworkLoadBalancedFargateService(
       this,
       "Service",
@@ -75,7 +78,7 @@ export class EcsServiceStack extends core.Stack {
       }
     );
 
-    /* opening ports */
+    /* Opening Ports */
     const allPorts = new ec2.Port({
       protocol: ec2.Protocol.TCP,
       fromPort: 0,

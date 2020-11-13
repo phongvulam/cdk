@@ -37,14 +37,14 @@ export class APIGatewayStack extends core.Stack {
       tags: props.tags,
     });
 
-    /* creating VPC link */
+    /* Creating VPC link */
     const apiGatewayVPCLink = new VpcLink(this, "APIGatewayVPCLink", {
       targets: [props.ecsService.loadBalancer],
       vpcLinkName: props.vpcLinkName,
       description: props.vpcLinkDescription,
     });
 
-    /* creating the REST API */
+    /* Creating the REST API */
     const restAPI = new RestApi(this, "MyRestAPI", {
       endpointTypes: [EndpointType.REGIONAL],
       restApiName: props.restApiName,
@@ -56,7 +56,7 @@ export class APIGatewayStack extends core.Stack {
       },
     });
 
-    /* creating Congnito Authorizer */
+    /* Creating Congnito Authorizer */
     var congitoAuthorizer = new CfnAuthorizer(this, "congitoAuthorizer", {
       restApiId: restAPI.restApiId,
       name: "congito-auth",
@@ -70,7 +70,7 @@ export class APIGatewayStack extends core.Stack {
       "student"
     );
 
-    /* adding GET method */
+    /* Adding GET method */
     student.addMethod(
       "GET",
       new Integration({
@@ -101,7 +101,7 @@ export class APIGatewayStack extends core.Stack {
       }
     );
 
-    /* adding POST method */
+    /* Adding POST method */
     student.addMethod(
       "POST",
       new Integration({
@@ -132,7 +132,7 @@ export class APIGatewayStack extends core.Stack {
       }
     );
 
-    /* adding PUT method */
+    /* Adding PUT method */
     student.addMethod(
       "PUT",
       new Integration({
@@ -163,7 +163,7 @@ export class APIGatewayStack extends core.Stack {
       }
     );
 
-    /* adding DELETE method */
+    /* Adding DELETE method */
     student.addMethod(
       "DELETE",
       new Integration({
@@ -194,7 +194,7 @@ export class APIGatewayStack extends core.Stack {
       }
     );
 
-    /* adding CORS */
+    /* Adding CORS */
     student.addCorsPreflight({
       allowOrigins: ["*"],
       allowHeaders: ["*"],

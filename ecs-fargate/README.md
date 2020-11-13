@@ -2,6 +2,19 @@
 
 This CDK Package deploy a SpringBoot application using CDK (Cloud Development Kit).
 
+* [ ] Publish Spring Boot Docker Images to ECR using Maven Plugin.docx: .sh --> **TravelBuddy** + ECR/Docker 
+    * [ ] **SpringBoot** >> `springboot-aws/Dockerfile` >> ECR >> `Code Pipeline` https://start.spring.io/starter.zip --> **TravelBuddy**
+    * [ ] .docx --> .sh
+
+* [ ] DynamoDB: CRUD `/student` --> CRUD `/TravelBuddy` 
+    * [ ] Student_Table --> TravelBuddy Table
+    * [ ] studentId     --> TravelBuddy xxxID
+    * [ ] student, student.addMethod - `api_gateway.ts`
+
+* [ ] Configurable variable using dotenv `.env`
+
+* [ ] Support both: `NLB` layer-4  --> `ALB` layer-7  
+ 
 ## Project Structure
 
 * The SpringBoot application is present inside `springboot-aws` folder. You can customize the SpringBoot application by adding more operations or updating/changing the buisness logic.
