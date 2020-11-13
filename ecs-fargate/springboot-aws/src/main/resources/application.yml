@@ -1,0 +1,5 @@
+#configuration file
+amazon:
+  region: ap-southeast-1
+server:
+  port: 8000

@@ -13,7 +13,9 @@ This CDK Package deploy a SpringBoot application using CDK (Cloud Development Ki
 
 * [ ] Configurable variable using dotenv `.env`
 
-* [ ] Support both: `NLB` layer-4  --> `ALB` layer-7  
+* [ ] Support both: `NLB` layer-4  --> `ALB` layer-7 
+
+* [ ] Postman: nice to have 
  
 ## Project Structure
 
