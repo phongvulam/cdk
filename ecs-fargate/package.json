@@ -21,7 +21,27 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.67.0",
+    "@aws-cdk/aws-apigateway": "^1.73.0",
+    "@aws-cdk/aws-autoscaling": "^1.73.0",
+    "@aws-cdk/aws-certificatemanager": "^1.73.0",
+    "@aws-cdk/aws-cloudformation": "^1.73.0",
+    "@aws-cdk/aws-cloudfront": "^1.73.0",
+    "@aws-cdk/aws-cloudtrail": "^1.73.0",
+    "@aws-cdk/aws-codecommit": "^1.73.0",
+    "@aws-cdk/aws-codepipeline": "^1.73.0",
+    "@aws-cdk/aws-cognito": "^1.73.0",
+    "@aws-cdk/aws-config": "^1.73.0",
+    "@aws-cdk/aws-dynamodb": "^1.73.0",
+    "@aws-cdk/aws-ec2": "^1.73.0",
+    "@aws-cdk/aws-ecs": "^1.73.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.73.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.73.0",
+    "@aws-cdk/aws-iam": "^1.73.0",
+    "@aws-cdk/aws-lambda": "^1.73.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.73.0",
+    "@aws-cdk/aws-route53": "^1.73.0",
+    "@aws-cdk/aws-s3": "^1.73.0",
+    "@aws-cdk/core": "^1.67.0",
     "source-map-support": "^0.5.16"
   }
 }
