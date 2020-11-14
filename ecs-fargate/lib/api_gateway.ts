@@ -19,13 +19,13 @@ import { UserPool } from "@aws-cdk/aws-cognito";
 export interface APIGatewayStackProps {
   readonly ecsService: NetworkLoadBalancedFargateService;
   readonly userPool: UserPool;
-  readonly vpcLinkName: string,
-  readonly vpcLinkDescription: string,
-  readonly stageName: string,
-  readonly identitySource: string
-  readonly dataTraceEnabled: boolean,
-  readonly tracingEnabled: boolean,
-  readonly restApiName: string
+  readonly vpcLinkName: string;
+  readonly vpcLinkDescription: string;
+  readonly stageName: string;
+  readonly identitySource: string;
+  readonly dataTraceEnabled: boolean;
+  readonly tracingEnabled: boolean;
+  readonly restApiName: string;
   readonly tags?: {
     [key: string]: string;
   };
@@ -57,7 +57,8 @@ export class APIGatewayStack extends core.Stack {
     });
 
     /* Creating Congnito Authorizer */
-    var congitoAuthorizer = new CfnAuthorizer(this, "congitoAuthorizer", {
+
+    const congitoAuthorizer = new CfnAuthorizer(this, "congitoAuthorizer", {
       restApiId: restAPI.restApiId,
       name: "congito-auth",
       identitySource: props.identitySource,
@@ -66,9 +67,7 @@ export class APIGatewayStack extends core.Stack {
     });
 
     /* Adding the root resource */
-    const student = restAPI.root.addResource(
-      "student"
-    );
+    const student = restAPI.root.addResource("student");
 
     /* Adding GET method */
     student.addMethod(

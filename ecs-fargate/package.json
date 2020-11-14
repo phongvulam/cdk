@@ -21,6 +21,9 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@aws-cdk/core": "^1.73.0",
+    "@aws-cdk/cx-api": "^1.73.0",
+    "@aws-cdk/cloud-assembly-schema": "^1.73.0",
     "@aws-cdk/aws-apigateway": "^1.73.0",
     "@aws-cdk/aws-autoscaling": "^1.73.0",
     "@aws-cdk/aws-certificatemanager": "^1.73.0",
@@ -41,7 +44,6 @@
     "@aws-cdk/aws-lambda-event-sources": "^1.73.0",
     "@aws-cdk/aws-route53": "^1.73.0",
     "@aws-cdk/aws-s3": "^1.73.0",
-    "@aws-cdk/core": "^1.67.0",
     "source-map-support": "^0.5.16"
   }
 }
