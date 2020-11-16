@@ -14,10 +14,12 @@ import {
 } from "@aws-cdk/aws-apigateway";
 
 import { NetworkLoadBalancedFargateService } from "@aws-cdk/aws-ecs-patterns";
+import { ApplicationLoadBalancedFargateService } from "@aws-cdk/aws-ecs-patterns";
 import { UserPool } from "@aws-cdk/aws-cognito";
 
 export interface APIGatewayStackProps {
   readonly ecsService: NetworkLoadBalancedFargateService;
+  readonly ecsServiceAppLoadBalance: ApplicationLoadBalancedFargateService;
   readonly userPool: UserPool;
   readonly vpcLinkName: string;
   readonly vpcLinkDescription: string;
@@ -67,7 +69,7 @@ export class APIGatewayStack extends core.Stack {
     });
 
     /* Adding the root resource */
-    const student = restAPI.root.addResource("student");
+    const student = restAPI.root.addResource("tralvel");
 
     /* Adding GET method */
     student.addMethod(
@@ -79,7 +81,7 @@ export class APIGatewayStack extends core.Stack {
           connectionType: ConnectionType.VPC_LINK,
           vpcLink: apiGatewayVPCLink,
         },
-        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/student`,
+        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/api`,
       }),
       {
         authorizationType: AuthorizationType.COGNITO,
@@ -110,7 +112,7 @@ export class APIGatewayStack extends core.Stack {
           connectionType: ConnectionType.VPC_LINK,
           vpcLink: apiGatewayVPCLink,
         },
-        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/student`,
+        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/api`,
       }),
       {
         authorizationType: AuthorizationType.COGNITO,
@@ -141,7 +143,7 @@ export class APIGatewayStack extends core.Stack {
           connectionType: ConnectionType.VPC_LINK,
           vpcLink: apiGatewayVPCLink,
         },
-        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/student`,
+        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/api`,
       }),
       {
         authorizationType: AuthorizationType.COGNITO,
@@ -172,7 +174,7 @@ export class APIGatewayStack extends core.Stack {
           connectionType: ConnectionType.VPC_LINK,
           vpcLink: apiGatewayVPCLink,
         },
-        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/student`,
+        uri: `http://${props.ecsService.loadBalancer.loadBalancerDnsName}/api`,
       }),
       {
         authorizationType: AuthorizationType.COGNITO,
