@@ -13,36 +13,6 @@ function _logger() {
 #########################################################
 #########################################################
 
-function upgrade_ebs_storage_AmazonLinux() {
-    _logger "[+] AMZ-Linux2/CenOS EBS Extending a Partition on a T2/T3 Instance"
-    sudo file -s /dev/nvme?n*
-    sudo growpart /dev/nvme0n1 1
-    lsblk
-    echo "Extend an ext2/ext3/ext4 file system"
-    sudo yum install xfsprogs
-    sudo resize2fs /dev/nvme0n1p1
-    df -h
-}
-
-function upgrade_ebs_storage_Ubuntu() {
-    _logger "[+] Ubuntu EBS Extending a Partition on an EC2 Instance"
-    sudo growpart /dev/xvda 1
-    lsblk
-    echo "Extend an EBS Volumne size"
-    sudo resize2fs /dev/xvda1
-    df -hT
-}
-
-function installing_k9s() {
-    ## Install k9s
-    K9S_VERSION=0.23.1
-    K9S_TAR_FILENAME=k9s_$(uname -s)_$(uname -m).tar.gz
-    curl -o /tmp/$K9S_TAR_FILENAME -L -k https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/$K9S_TAR_FILENAME
-    tar -xvf /tmp/$K9S_TAR_FILENAME -C /tmp/
-    sudo mv /tmp/k9s /usr/local/bin/k9s
-    sudo chmod +x /usr/local/bin/k9s    
-}
-
 function prerequisites_with_brew() {
     echo "[BEGIN][MacOS] prerequisites_with_brew() ..."
     
@@ -53,37 +23,39 @@ function prerequisites_with_brew() {
     rm ./AWSCLIV2.pkg
 
     brew install node@12
-    brew install aws-cdk
+    sudo npm install -g aws-cdk
 
-    _logger "[+] Upgrade Python 3.8"
-    brew install python@3.8
-    echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"'      >> ~/.bash_profile
-    echo 'export PATH="/usr/local/opt/python@3.8/bin/pip3:$PATH"' >> ~/.bash_profile
-    echo 'alias python="python3.8"'                               >> ~/.bash_profile
-    echo 'alias python3="python3.8"'                              >> ~/.bash_profile
-    echo 'alias pip="pip3"'                                       >> ~/.bash_profile
-    source ~/.bash_profile
-    # echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"' >> ~/.zshrc
-    # echo 'export PATH="/usr/local/opt/python@3.8/bin/pip3:$PATH"' >> ~/.zshrc
-    # echo 'alias python="python3.8"' >> ~/.zshrc
-    # echo 'alias python3="python3.8"' >> ~/.zshrc
-    # echo 'alias pip="pip3"' >> ~/.zshrc
-    # source ~/.zshrc
-    # _logger "[+] Upgrading Python pip and setuptools"
-    # python3 -m pip install --upgrade pip setuptools --user
+    ### TODO Installing Python3 & Pip3
 
-    brew install kubectl
-    brew tap weaveworks/tap
-    brew install weaveworks/tap/eksctl
-    # brew upgrade eksctl && brew link --overwrite eksctl
+    # _logger "[+] Upgrade Python 3.8"
+    # brew install python@3.8
+    # echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"'      >> ~/.bash_profile
+    # echo 'export PATH="/usr/local/opt/python@3.8/bin/pip3:$PATH"' >> ~/.bash_profile
+    # echo 'alias python="python3.8"'                               >> ~/.bash_profile
+    # echo 'alias python3="python3.8"'                              >> ~/.bash_profile
+    # echo 'alias pip="pip3"'                                       >> ~/.bash_profile
+    # source ~/.bash_profile
+    ## echo 'export PATH="/usr/local/opt/python@3.8/bin:$PATH"' >> ~/.zshrc
+    ## echo 'export PATH="/usr/local/opt/python@3.8/bin/pip3:$PATH"' >> ~/.zshrc
+    ## echo 'alias python="python3.8"' >> ~/.zshrc
+    ## echo 'alias python3="python3.8"' >> ~/.zshrc
+    ## echo 'alias pip="pip3"' >> ~/.zshrc
+    ## source ~/.zshrc
+    ## _logger "[+] Upgrading Python pip and setuptools"
+    ## python3 -m pip install --upgrade pip setuptools --user
 
-    curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    ### TODO Installing EKS tools
+    # brew install kubectl
+    # brew tap weaveworks/tap
+    # brew install weaveworks/tap/eksctl
+    ## brew upgrade eksctl && brew link --overwrite eksctl
 
-    brew install fluxctl
-    # brew link --overwrite fluxctl
+    # curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    # brew install fluxctl
+    ## brew link --overwrite fluxctl
 
     ## Install k9s
-    brew install k9s
+    # brew install k9s
     
     echo "[END][MacOS] prerequisites_with_brew() !!!"
 }
@@ -177,9 +149,39 @@ function prerequisites_with_yum() {
 function prerequisites_with_windows() {
     echo "[BEGIN] prerequisites_with_windows() ..."
     
-    # TODO: Windows
+    ## TODO Installing Windows
     
     echo "[END] prerequisites_with_windows() !!!"
+}
+
+function upgrade_ebs_storage_AmazonLinux() {
+    _logger "[+] AMZ-Linux2/CenOS EBS Extending a Partition on a T2/T3 Instance"
+    sudo file -s /dev/nvme?n*
+    sudo growpart /dev/nvme0n1 1
+    lsblk
+    echo "Extend an ext2/ext3/ext4 file system"
+    sudo yum install xfsprogs
+    sudo resize2fs /dev/nvme0n1p1
+    df -h
+}
+
+function upgrade_ebs_storage_Ubuntu() {
+    _logger "[+] Ubuntu EBS Extending a Partition on an EC2 Instance"
+    sudo growpart /dev/xvda 1
+    lsblk
+    echo "Extend an EBS Volumne size"
+    sudo resize2fs /dev/xvda1
+    df -hT
+}
+
+function installing_k9s() {
+    ## Install k9s
+    K9S_VERSION=0.23.1
+    K9S_TAR_FILENAME=k9s_$(uname -s)_$(uname -m).tar.gz
+    curl -o /tmp/$K9S_TAR_FILENAME -L -k https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/$K9S_TAR_FILENAME
+    tar -xvf /tmp/$K9S_TAR_FILENAME -C /tmp/
+    sudo mv /tmp/k9s /usr/local/bin/k9s
+    sudo chmod +x /usr/local/bin/k9s    
 }
 
 function prerequisites() {
@@ -270,15 +272,15 @@ function verify_prerequisites() {
     echo "[x] Verify AWS CLI version 2": $(aws --version)
     echo "[x] Verify Node.js": $(node --version)
     echo "[x] Verify CDK": $(cdk --version)
-    echo "[x] Verify Python": $(python -V)
-    echo "[x] Verify Python3": $(python3 -V)
-    echo "[x] Verify Pip": $(pip -V)
-    echo "[x] Verify Pip3": $(pip3 -V)
-    echo "[x] Verify kubectl": $(kubectl version --client)
-    echo "[x] Verify eksctl": $(eksctl version)
-    echo "[x] Verify helm3": $(helm version --short)
-    echo "[x] Verify k9s": $(k9s version --short)
-    echo "[x] Verify fluxctl": $(fluxctl version)
+    # echo "[x] Verify Python": $(python -V)
+    # echo "[x] Verify Python3": $(python3 -V)
+    # echo "[x] Verify Pip": $(pip -V)
+    # echo "[x] Verify Pip3": $(pip3 -V)
+    # echo "[x] Verify kubectl": $(kubectl version --client)
+    # echo "[x] Verify eksctl": $(eksctl version)
+    # echo "[x] Verify helm3": $(helm version --short)
+    # echo "[x] Verify k9s": $(k9s version --short)
+    # echo "[x] Verify fluxctl": $(fluxctl version)
     echo "[END] verify_prerequisites() !!!"
 }
 
@@ -298,6 +300,7 @@ function main() {
     # prerequisites_docker
 
     _logger "[+] Verify Prerequisites"
+    ### Installing AWS CDK tools: https://docs.aws.amazon.com/cdk/latest/guide/tools.html 
     verify_prerequisites
 
     # upgrade_ebs_storage_AmazonLinux
