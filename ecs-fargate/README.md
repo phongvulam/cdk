@@ -16,6 +16,8 @@ This CDK Package deploy a SpringBoot application using CDK (Cloud Development Ki
 * [ ] Support both: `NLB` layer-4  --> `ALB` layer-7 
 
 * [ ] Postman: nice to have 
+
+* [ ] https://github.com/nnthanh101/cdk/blob/master/aws-infrastructure/lib/aws-infrastructure-stack.ts
  
 ## Project Structure
 
