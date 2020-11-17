@@ -12,6 +12,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 @Configuration
 public class DynamoDBConfig {
+	
 
 	@Value("${amazon.accesskey}")
 	private String awsAccessKey;
