@@ -10,15 +10,13 @@ function _logger() {
     echo -e "$(date) ${YELLOW}[*] $@ ${NC}"
 }
 
-
 # ./install-prerequisites.sh
 source .env.sh
-
 
 started_time=$(date '+%d/%m/%Y %H:%M:%S')
 echo
 echo "#########################################################"
-echo "[START] deploy-eks docker in ECR & DockerHub - starting at ${started_time}"
+echo "[START] Deploy SpringBoot Docker to ECR & DockerHub - starting at ${started_time}"
 echo "#########################################################"
 echo
 
@@ -41,6 +39,7 @@ echo $DOCKER_REGISTRY_PASSWORD | docker login --username $DOCKER_REGISTRY_USERNA
 docker rmi -f ${ECR_REPOSITORY}
 docker rmi -f ${CONTAINER_REGISTRY_URL}/${ECR_REPOSITORY}
 docker build -t ${ECR_REPOSITORY} -f Dockerfile .
+
 ## Tag for ECR
 docker tag ${ECR_REPOSITORY} ${CONTAINER_REGISTRY_URL}/${ECR_REPOSITORY}:latest
 ## Tag for DockerHub
@@ -53,6 +52,6 @@ docker push ${DOCKER_REGISTRY_NAMESPACE}/${ECR_REPOSITORY}
 ended_time=$(date '+%d/%m/%Y %H:%M:%S')
 echo
 echo "#########################################################"
-echo -e "${RED} [FINISH] deploy-eks docker - finished at ${ended_time} - ${started_time} ${NC}"
+echo -e "${RED} [FINISH] Deploy SpringBoot Docker to ECR & DockerHub - finished at ${ended_time} - ${started_time} ${NC}"
 echo "#########################################################"
 echo

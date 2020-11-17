@@ -19,12 +19,20 @@ const app = new cdk.App();
 new EcsFargateStack(app, "EcsFargateStack");
 
 /** Step 1. VPC */
+
+// FIXME: ~aws-infrastructure-stack.ts~ >> ~getOrCreateVpc~
+// CreateVpc(this, VPC_TYPE)
+// getVpc(this, VPC_TYPE)
 const vpc = new Vpc(app, applicationMetaData.vpcStackName, {
   maxAzs: applicationMetaData.maxAzs,
   cidr: applicationMetaData.cidr,
 });
 
-/** Step 2. BastionHost?JumpBox EC2 */
+/** Step 2. BastionHost?JumpBox EC2 
+ * OS: AmazonLinux 2.3
+ * Ubuntu ???
+ * Windows Server ???
+ */
 const bastionHost = new BastonHostStack(
   app,
   applicationMetaData.bastionHostStackName,
@@ -69,7 +77,10 @@ const ecsService = new EcsServiceStack(
   }
 );
 
-/** Step 5. ECS Service >> DNS-IP:Port */
+/** Step 5. ECS Service >> DNS-IP:Port 
+ * Option 1: NLB
+ * Option 2: ALB
+ */
 const ecsServiceAlb = new EcsServiceStackAlb(
   app,
   applicationMetaData.ECSServiceStackAlbName,

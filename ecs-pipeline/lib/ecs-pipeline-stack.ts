@@ -34,7 +34,8 @@ export class EcsPipelineStack extends cdk.Stack {
     //   vpcId: 'YOUR_VPC_ID', // TODO: Insert your VPC-ID here
     // });
 
-    const vpc = new ec2.Vpc(this, 'DefaultVpc', { maxAzs: 2});
+    // FIXME: Simplified-VPC: 1 Public-Subnet + 0 NAT-Gateway
+    const vpc = new ec2.Vpc(this, 'Simplified-VPC', { maxAzs: 2});
     
     /** @todo 1: 
      * Option 1: create NEW VPC

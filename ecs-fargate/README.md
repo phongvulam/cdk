@@ -1,5 +1,54 @@
 # Creating an AWS Fargate service using the AWS CDK
 
+=== 27/11/2020
+
+# SpringBoot on AWS 
+
+## Step 1: Deploy SpringBoot Docker to ECR or DockerHub
+
+`./deploy-docker-ecr.sh`
+
+* [ ] `Dockerfile`: 
+    * [ ] maven:3.5.2-jdk-8-alpine vs. `openjdk:8-jdk-alpine`
+    * [ ] Latest version?
+
+* [ ] Versioning: TravelBuddy-0.0.1 --> TravelBuddy-xxx: 
+    
+    if [ $(uname -s) == 'Darwin' ] ; then
+        sed -i '' "s/_APP_VERSION_/${APP_VERSION}/g" Dockerfile.template > Dockerfile
+    else
+        sed -i "s/_APP_VERSION_/${APP_VERSION}/g"    Dockerfile.template >  Dockerfile
+
+## Step 2:  
+
+`cdk deploy EcsFargateStack`
+
+### 2.1. VPC: `vpc.ts`
+
+#### 2.1.1. Create a NEW VPC: simplified VPC (hosting Frontend Application in the Public Subnet), 3-Tier VPC, ...
+
+VPC_TYPE: Standard-VPC, 3Tier-VPC, Frontend-VPC
+
+* [ ] MyVpc: --> **Management VPC**
+* [ ] Production-VPC: `blueprint/lib/aws-vpc.ts` --> **Development VPC** & **ProductionVPC**
+* [ ] Simplified-VPC: 1 Public-Subnet + 0 NAT-Gateway --> **ecs-pipeline** >> Frontend: React, Vue, Angular
+
+
+#### 2.1.2. Attach the existing VPC
+
+~aws-infrastructure-stack.ts~ --> 
+
+* [ ] CreateVpc(this): 2.1.1
+* [ ] getVpc(this): 2.1.2 from VPC-ID or VPC-Name
+
+## 3. ElasticBeanstalk
+
+mkdir elasticbeanstalk
+cd elasticbeanstalk
+cdk init --language typescript
+
+===
+
 This CDK Package deploy a SpringBoot application using CDK (Cloud Development Kit).
 
 * [ ] Publish Spring Boot Docker Images to ECR using Maven Plugin.docx: .sh --> **TravelBuddy** + ECR/Docker 
