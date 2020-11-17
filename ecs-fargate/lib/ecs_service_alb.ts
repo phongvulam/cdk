@@ -25,9 +25,9 @@ export interface EcsServiceStackProps {
 /**
  * Creating the ECS service
  */
-export class EcsServiceStack extends core.Stack {
-  public readonly service: ecsPatterns.NetworkLoadBalancedFargateService;
-  // public readonly ecsServiceAppLoadBalance: ecsPatterns.ApplicationLoadBalancedFargateService;
+export class EcsServiceStackAlb extends core.Stack {
+  // public readonly service: ecsPatterns.NetworkLoadBalancedFargateService;
+  public readonly service: ecsPatterns.ApplicationLoadBalancedFargateService;
   public readonly loadBalancerOutput: core.CfnOutput;
   constructor(parent: core.App, name: string, props: EcsServiceStackProps) {
     super(parent, name, {
@@ -58,13 +58,9 @@ export class EcsServiceStack extends core.Stack {
       })
     );
 
-    /**
-     * Creating NLB/ALB fronted ECS service.
-     * FIXME: ALB & NLB
-     */
-    this.service = new ecsPatterns.NetworkLoadBalancedFargateService(
+    this.service = new ecsPatterns.ApplicationLoadBalancedFargateService(
       this,
-      "Service",
+      "TralvelServiceApplicationLoadBalance",
       {
         serviceName: props.serviceName,
         desiredCount: props.desiredCount,
@@ -72,6 +68,7 @@ export class EcsServiceStack extends core.Stack {
         memoryLimitMiB: props.taskmemoryLimitMiB,
         cpu: props.taskCPU,
         publicLoadBalancer: props.publicLoadBalancer,
+        listenerPort:8000,
         taskImageOptions: {
           containerPort: props.containerPort,
           image: ecs.ContainerImage.fromAsset(props.springCodeLocation),
@@ -79,24 +76,6 @@ export class EcsServiceStack extends core.Stack {
         },
       }
     );
-
-    // this.ecsServiceAppLoadBalance = new ecsPatterns.ApplicationLoadBalancedFargateService(
-    //   this,
-    //   "TralvelServiceApplicationLoadBalance",
-    //   {
-    //     serviceName: props.serviceName,
-    //     desiredCount: props.desiredCount,
-    //     cluster: props.ecsCluster,
-    //     memoryLimitMiB: props.taskmemoryLimitMiB,
-    //     cpu: props.taskCPU,
-    //     publicLoadBalancer: props.publicLoadBalancer,
-    //     taskImageOptions: {
-    //       containerPort: props.containerPort,
-    //       image: ecs.ContainerImage.fromAsset(props.springCodeLocation),
-    //       taskRole: taskRole,
-    //     },
-    //   }
-    // );
 
     /* Opening Ports */
     const allPorts = new ec2.Port({
@@ -107,12 +86,11 @@ export class EcsServiceStack extends core.Stack {
     });
 
     this.service.service.connections.allowFromAnyIpv4(allPorts);
-
+    
     /* configuring heath checks */
     this.service.targetGroup.configureHealthCheck({
       port: "traffic-port",
-      protocol: elbv2.Protocol.TCP,
-      // protocol: elbv2.Protocol.HTTP,
+      protocol: elbv2.Protocol.HTTP,
     });
 
     /* setting deregistration_delay.timeout_seconds */
