@@ -49,9 +49,21 @@ _logger "[+] Pushing Docker Image ..."
 docker push ${CONTAINER_REGISTRY_URL}/${ECR_REPOSITORY}
 docker push ${DOCKER_REGISTRY_NAMESPACE}/${ECR_REPOSITORY}
 
+
 ended_time=$(date '+%d/%m/%Y %H:%M:%S')
 echo
 echo "#########################################################"
 echo -e "${RED} [FINISH] Deploy SpringBoot Docker to ECR & DockerHub - finished at ${ended_time} - ${started_time} ${NC}"
 echo "#########################################################"
 echo
+
+## FIXME: Docker-Compose - 
+## [x] SpringBoot Docker
+## [ ] MySQL-Docker: + .sql
+## --> Test from localhost
+
+# _logger "[+] Execute commands inside of the Docker ..."
+# docker run -it -e "AWS_REGION=$AWS_REGION" --rm \
+#        -v "$HOME/.aws:/root/.aws" \
+#        -v $PWD:/project \
+#        ${DOCKER_IMAGE_REPOSITORY} bash -c 'chmod +x boostrap.sh; ./boostrap.sh'
