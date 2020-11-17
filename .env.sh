@@ -6,8 +6,8 @@ export AWS_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account' | tr -d '\n'
 export AWS_REGION=${AWS_REGION:-"ap-southeast-1"}
 # export AWS_ACCOUNT=$(aws sts get-caller-identity --output text --query Account)
 # export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-# export AWS_ACCESS_KEY_ID=""
-# export AWS_SECRET_ACCESS_KEY=""
+# export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account' | tr -d '\n')
+# export CDK_DEFAULT_REGION=${AWS_REGION:-"ap-southeast-1"}
 
 ## 2. Configuring ECR
 export CONTAINER_REGISTRY_URL=${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
