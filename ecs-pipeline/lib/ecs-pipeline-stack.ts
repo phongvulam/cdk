@@ -26,7 +26,9 @@ export interface PipelineStackProps extends cdk.StackProps {
 export class EcsPipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
+    
+    var Duration = require("duration");
+    
     // The code that defines your stack goes here
 
     /** 1. VPC: attach the existing VPC */
