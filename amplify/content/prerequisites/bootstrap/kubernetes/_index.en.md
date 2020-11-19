@@ -1,8 +1,8 @@
 ---
-title: "Kubernetes Basics"
+title: "Kubernetes 101 🚀"
 chapter: false
 weight: 50
-pre: "<b>1.5. </b>"
+pre: "<b>3.5. </b>"
 ---
 
 {{% notice tip %}}

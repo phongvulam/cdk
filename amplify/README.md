@@ -4,16 +4,16 @@
 Please follow the link and install the right version.
 ### 1. Prerequisites
 ```
-brew install node
+brew install node@12
 brew install hugo
 ```
 
 ### 2. Git clone
 
 ```
-git clone https://github.com/nnthanh101/aws-cdk.git
+git clone https://github.com/nnthanh101/cdk.git
 
-cd eks-workshop
+cd cdk/amplify
 npm run theme
 ```
 

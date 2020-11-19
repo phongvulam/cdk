@@ -1,8 +1,8 @@
 ---
-title: "IAM Role for Workspace"
+title: "IAM Role for Cloud9"
 chapter: false
-weight: 40
-pre: "<b>1.2.1. </b>"
+weight: 10
+pre: "<b>3.1. </b>"
 ---
 
 ### 1. Create an IAM Role for your Workspace

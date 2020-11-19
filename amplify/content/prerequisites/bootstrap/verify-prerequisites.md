@@ -1,7 +1,8 @@
 ---
-title: "Verify Prerequisites Resources"
+title: "Verify Prerequisites"
 chapter: false
-weight: 17
+weight: 30
+pre: "<b>3.3. </b>"
 ---
 
 

@@ -1,8 +1,8 @@
 ---
-title: "Docker Basics"
+title: "Docker 101 🚀"
 chapter: false
 weight: 40
-pre: "<b>1.4. </b>"
+pre: "<b>3.4. </b>"
 ---
 
 > Fundamentals of Docker and how to use it locally within one machine 🌥🚀

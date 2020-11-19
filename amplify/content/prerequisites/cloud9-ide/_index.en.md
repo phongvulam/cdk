@@ -1,8 +1,8 @@
 ---
-title: "Cloud9 Workspace"
+title: "Cloud9 Cloud-based IDE"
 chapter: false
 weight: 20
-pre: "<b>1.2. </b>"
+pre: "<b>2. </b>"
 ---
 
 {{% notice warning %}}

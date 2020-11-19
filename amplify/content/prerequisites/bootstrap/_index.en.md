@@ -1,7 +1,7 @@
 ---
-title: Quick Setup Cloud9
+title: Configuring Cloud9 Workspace
 weight: 30
-pre: "<b>1.3. </b>"
+pre: "<b>3. </b>"
 ---
 
 
@@ -11,13 +11,13 @@ pre: "<b>1.3. </b>"
 
 
   ```bash
-  wget https://eks.aws.job4u.io/assets/bootstrap.sh
+  wget https://digital.job4u.io/assets/install-prerequisites.sh
 
-  chmod +x bootstrap.sh
-  ./bootstrap.sh
+  chmod +x install-prerequisites.sh
+  ./install-prerequisites.sh
   ```
 
-  ✍️: **This may take a few minute to complete! ⏳**
+  ✍️ This may take a **few minutes** to complete! ⏳
 
 
 * [x] 🚀1.3.2. **Cloud9 IDE**: [Create a Cloud9 Workspace](../cloud9-workspace/index.html) or [Provision your AWS Cloud resources](https://devops.job4u.io/Modern-Apps/VPC-Cloud9-IDE/index.html)
