@@ -1,5 +1,5 @@
 ---
-title: Configuring Cloud9 Workspace
+title: Configuring Cloud9
 weight: 30
 pre: "<b>3. </b>"
 ---

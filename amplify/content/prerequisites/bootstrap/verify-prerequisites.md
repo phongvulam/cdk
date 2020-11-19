@@ -2,7 +2,7 @@
 title: "Verify Prerequisites"
 chapter: false
 weight: 30
-pre: "<b>3.3. </b>"
+# pre: "<b>3.3. </b>"
 ---
 
 

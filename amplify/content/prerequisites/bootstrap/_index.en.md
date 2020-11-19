@@ -1,5 +1,5 @@
 ---
-title: Configuring Cloud9 Workspace
+title: Configuring Cloud9
 weight: 30
 pre: "<b>3. </b>"
 ---
@@ -17,7 +17,7 @@ pre: "<b>3. </b>"
   ./bootstrap.sh
   ```
 
-  ✍️ This may take a **few minutes** to complete! ⏳
+  ✍️ It takes **a few minutes** to complete! ⏳
 
 
 * [x] 🚀1.3.2. **Cloud9 IDE**: [Create a Cloud9 Workspace](../cloud9-workspace/index.html) or [Provision your AWS Cloud resources](https://devops.job4u.io/Modern-Apps/VPC-Cloud9-IDE/index.html)
