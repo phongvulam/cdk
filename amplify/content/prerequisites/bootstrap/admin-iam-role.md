@@ -7,18 +7,18 @@ pre: "<b>3.1. </b>"
 
 ### 1. Create an IAM Role for your Workspace
 
-1. Follow [this deep link to create an IAM role with Administrator access.](https://console.aws.amazon.com/iam/home#/roles$new?step=review&commonUseCase=EC2%2BEC2&selectedUseCase=EC2&policies=arn:aws:iam::aws:policy%2FAdministratorAccess&roleName=eks-admin-role)
+1. Follow [this deep link to create an IAM role with Administrator access.](https://console.aws.amazon.com/iam/home#/roles$new?step=review&commonUseCase=EC2%2BEC2&selectedUseCase=EC2&policies=arn:aws:iam::aws:policy%2FAdministratorAccess&roleName=admin-role)
 2. Confirm that **AWS service** and **EC2** are selected, then click **Next** to view permissions.
 3. Confirm that **AdministratorAccess** is checked, then click **Next: Tags** to assign tags.
 4. Take the defaults, and click **Next: Review** to review.
-5. Enter `eks-admin-role` for the Name, and click **Create role**.
+5. Enter `admin-role` for the Name, and click **Create role**.
 
 ### 2. Attach the IAM role to your Workspace
 
 1. Follow [this deep link to find your Cloud9 EC2 instance](https://console.aws.amazon.com/ec2/v2/home?#Instances:tag:Name=aws-cloud9-.*;sort=desc:launchTime)
 2. Select the instance, then choose **Actions / Instance Settings / Attach/Replace IAM Role**
 ![c9instancerole](/images/prerequisites/c9instancerole.png)
-3. Choose `eks-admin-role` from the **IAM Role** drop down, and select **Apply**
+3. Choose `admin-role` from the **IAM Role** drop down, and select **Apply**
 
 ### 3. Update IAM settings for your Workspace
 

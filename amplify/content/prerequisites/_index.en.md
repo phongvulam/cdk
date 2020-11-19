@@ -1,5 +1,5 @@
 ---
-title: Get Ready! 🌥
+title: Get Ready 🌥
 weight: 10
 pre: "<b>0. </b>"
 ---
@@ -11,11 +11,11 @@ pre: "<b>0. </b>"
 
     You have received AWS credentials; make sure you have sufficient privileges in your AWS account.
     
-  * [x] [Using AWS Workshop Portal](./aws-workshop-portal/)
+  * [x] **0.1.** [Using AWS Workshop Portal](./aws-workshop-portal/)
   * [ ] [Creating your own AWS account (AWS Free Tier)](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc)
 
 * [x] 2. ⚡ Provisioning Cloud-based **Cloud9 IDE**
-  * [x] [Creating a Cloud9 IDE](./cloud9-workspace/)
+  * [x] **0.2.** [Creating a Cloud9 IDE](./cloud9-workspace/)
   * [ ] [Provisioning Cloud9 Workspace using CloudFormation IaC](https://devops.job4u.io/Modern-Apps/VPC-Cloud9-IDE/index.html)
 
 * [x] 3. 🎯Configuring **Cloud9 Workspace** 

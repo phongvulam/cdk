@@ -4,7 +4,6 @@ chapter: true
 weight: 1
 ---
 
-
 # Monolith to Cloud-Native Micro-Services 🚀
 
 ![Monolith to Cloud-Native Micro-Services](/images/Monolith-to-Cloud-Native-Micro-Services.png?width=50pc)

@@ -11,10 +11,10 @@ pre: "<b>3. </b>"
 
 
   ```bash
-  wget https://digital.job4u.io/assets/install-prerequisites.sh
+  wget https://digital.job4u.io/assets/bootstrap.sh
 
-  chmod +x install-prerequisites.sh
-  ./install-prerequisites.sh
+  chmod +x bootstrap.sh
+  ./bootstrap.sh
   ```
 
   ✍️ This may take a **few minutes** to complete! ⏳

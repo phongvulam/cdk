@@ -1,5 +1,5 @@
 ---
-title: Get Ready! 🌥
+title: Get Ready 🌥
 weight: 10
 pre: "<b>0. </b>"
 ---
