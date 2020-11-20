@@ -1,6 +1,5 @@
 import * as core from "@aws-cdk/core";
 import { Vpc , SubnetType, GatewayVpcEndpointAwsService, SecurityGroup, IVpc } from "@aws-cdk/aws-ec2";
-import { print } from "util";
 
 
 export interface VPCStackProps extends core.StackProps {
@@ -19,11 +18,11 @@ export class VPCStack extends core.Stack {
       ...props,
     });
     
-    const _vpc = Vpc.fromLookup(this, name, {
-      vpcName: props.vpcName
-    });
+    // const _vpc = Vpc.fromLookup(this, name, {
+    //   vpcName: props.vpcName
+    // });
     
-    print(_vpc);
+    // print(_vpc);
     
     this.vpc = new Vpc(this, name, {
       maxAzs: props.maxAzs,
