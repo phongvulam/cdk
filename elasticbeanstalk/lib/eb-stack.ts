@@ -20,7 +20,7 @@ export class EBStack extends cdk.Stack {
 
     // Construct an S3 asset from the ZIP located from directory up.cd
     const elbZipArchive = new s3assets.Asset(this, 'MyElbAppZip', {
-      path: '${__dirname}/../../target/aws-billservice-0.0.1.war',
+      path: '${__dirname}/../../elasticbeanstalk/Spring-Boot-swagger/target/Spring-Boot-swagger2-0.0.1-SNAPSHOT.jar',
     });
     new cdk.CfnOutput(this, 'S3BucketSourceCode', { value: elbZipArchive.s3BucketName })
 

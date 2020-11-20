@@ -31,3 +31,5 @@ export function validateEnvVariables() {
   //     );
   // }
 }
+
+// npm i --force -g aws-cdk

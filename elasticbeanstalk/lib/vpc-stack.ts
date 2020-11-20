@@ -7,6 +7,7 @@ export class VpcStack extends cdk.Stack {
     super(scope, id, props);
 
     // The code that defines your stack goes here
+    getCreateVpc(this);
   }
 }
 
