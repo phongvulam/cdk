@@ -1,15 +1,20 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import { EcsPipelineStack } from '../lib/ecs-pipeline-stack';
+import * as cdk from "@aws-cdk/core";
+
+import { Peer, Port, SecurityGroup, SubnetType, Vpc } from "@aws-cdk/aws-ec2";
+import { Role, ServicePrincipal } from "@aws-cdk/aws-iam";
+import { VPCStack } from "../lib/vpc-stack";
+import { EcsClusterStack } from "../lib/ecs-cluster";
+import { ALBStack } from "../lib/alb-stack";
+import { FargateTaskStack } from "../lib/fargate-stack";
+import { EcsPipelineStack } from "../lib/ecs-pipeline-stack";
+import { applicationMetaData } from "../configurations/config";
 
 const app = new cdk.App();
 
-/**
- * This sets the account to your default AWS account. Change here to use a different AWS account.
- * Best practice to use AWS Secrets Manager
- */
-new EcsPipelineStack(app, 'EcsPipelineStack', { env: {
-    account: process.env.AWS_ACCOUNT, 
-    region: process.env.AWS_REGION
-  }});
+new EcsPipelineStack(app, "EcsPipelineStack", {
+  env: {
+    account: process.env.AWS_ACCOUNT,
+    region: process.env.AWS_REGION,
+  },
+});
