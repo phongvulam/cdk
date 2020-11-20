@@ -7,6 +7,9 @@ import { ServicePrincipal } from '@aws-cdk/aws-iam';
 import { envVars } from './config';
 import {$log} from "@tsed/logger";
 import {getGetVpc} from './vpc-stack';
+import * as elbv2 from '@aws-cdk/aws-elasticloadbalancingv2';
+import autoscaling = require('@aws-cdk/aws-autoscaling');
+
 
 $log.level = "debug";
 $log.name = "EBStack";
@@ -24,6 +27,7 @@ export class EBStack extends cdk.Stack {
     });
     new cdk.CfnOutput(this, 'S3BucketSourceCode', { value: elbZipArchive.s3BucketName })
 
+$log.info(envVars.EB_APP_NAME);
     const appName = envVars.EB_APP_NAME;
     const app = new elasticbeanstalk.CfnApplication(this, 'Application', {
         applicationName: appName,
@@ -33,28 +37,70 @@ export class EBStack extends cdk.Stack {
     const ebRole = new iam.Role(this, 'CustomEBRole', {
       assumedBy: new ServicePrincipal('ec2.amazonaws.com'),
     });
-    // ebRole.addManagedPolicy({ 
-    //   managedPolicyArn: 'arn:aws:iam::aws:policy/AWSElasticBeanstalk'
-    // });
-    // ebRole.addManagedPolicy({ 
-    //   managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalk*'
-    // });
 
     // This is the Instance Profile which will allow the application to use the above role
     const ebInstanceProfile = new iam.CfnInstanceProfile(this, 'CustomInstanceProfile', {
       roles: [ebRole.roleName],
     });
+    
+    // const albSecurityGroup = new ec2.SecurityGroup(this, 'albSecurityGroup', {
+    //   allowAllOutbound: true,
+    //   securityGroupName: 'alb-sg',
+    //   vpc: vpc,
+    // });
 
-    const securityGroup = new ec2.SecurityGroup(this, 'securityGroup', {
+    // albSecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80));
+    // albSecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443));
+
+
+// Add a listener and open up the load balancer's security group
+// to the world.
+
+
+
+
+    const albSecurityGroup = new ec2.SecurityGroup(this, 'albSecurityGroup', {
+      allowAllOutbound: true,
+      securityGroupName: 'alb-sg',
       vpc: vpc,
     });
+    
+    const lb = new elbv2.ApplicationLoadBalancer(this, 'LB', {
+  vpc,
+  internetFacing: true,
+  securityGroup: albSecurityGroup, // Optional - will be automatically created otherwise
+});
 
-        const optionSettingProperties: elasticbeanstalk.CfnEnvironment.OptionSettingProperty[] = [
-      {
+const listener = lb.addListener('Listener', {
+  port: 80,
+
+  // 'open: true' is the default, you can leave it out if you want. Set it
+  // to 'false' and use `listener.connections` if you want to be selective
+  // about who can access the load balancer.
+  open: true,
+});
+
+const asg = new autoscaling.AutoScalingGroup(this, 'ASG', {
+     vpc:vpc,
+     instanceType:  ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
+     machineImage: new ec2.AmazonLinuxImage(),
+    }​​​​​​​​);
+    listener.addTargets('ApplicationFleet', {
+  port: 8080,
+  targets: [asg]
+});
+
+      const optionSettingProperties: elasticbeanstalk.CfnEnvironment.OptionSettingProperty[] = [
+        {
+            namespace: 'aws:autoscaling:launchconfiguration',
+            optionName: 'SecurityGroups',
+           value: albSecurityGroup.securityGroupId,
+        },
+       {
           namespace: 'aws:autoscaling:launchconfiguration',
           optionName: 'InstanceType',
           value: ec2.InstanceClass.C3+'.'+ec2.InstanceSize.LARGE,
-      },
+        },
       {
         namespace: 'aws:ec2:vpc',
         optionName: 'VPCId',

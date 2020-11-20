@@ -29,9 +29,9 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("REST FUL API")
 				.description("REST FUL API reference")
-				.termsOfServiceUrl("https://quytrinhonline.sacombank.com")
-				.contact("minhtk@gmail.com").license("Swagger2 License")
-				.licenseUrl("minhtk@gmail.com").version("1.0").build();
+				.termsOfServiceUrl("https://api.123.com")
+				.contact("aabc@gmail.com").license("Swagger2 License")
+				.licenseUrl("abc@gmail.com").version("1.0").build();
 	}
 
 }
