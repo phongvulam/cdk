@@ -1,13 +1,10 @@
 # Welcome to your CDK TypeScript project!
 
-## (`sudo yum install redhat-lsb-core` or `yum install redhat-lsb` or `dnf install redhat-lsb-core`)
-## 1. `sudo sh cdk/install-prerequisites.sh`
-## 2. `eb init`     if get conflict version=> pip3 --version (check python version) run `sudo pip3 install awsebcli``
-
-
-[*] Upgrade cdk schame version
-* `npm uninstall -g cdk`
-* `npm install -g aws-cdk`
+[*] Elastic beanstalk with mysql rds
+* `cdk deploy vpc`
+* `cdk deploy rdsmysql`
+* Create table in `./TravelBuddy/DB.sql`
+* `cdk deploy eb`
 
 This is a blank project for TypeScript development with CDK.
 
