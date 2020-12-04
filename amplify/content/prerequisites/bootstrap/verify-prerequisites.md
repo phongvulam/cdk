@@ -1,7 +1,8 @@
 ---
-title: "Verify Prerequisites Resources"
+title: "Verify Prerequisites"
 chapter: false
-weight: 17
+weight: 30
+# pre: "<b>3.3. </b>"
 ---
 
 
@@ -26,12 +27,12 @@ aws configure set default.region ${AWS_REGION}
 aws configure get default.region
 ```
 
-### Validate the IAM role `eks-admin-role`
+### Validate the IAM role `admin-role`
 
 Use the [GetCallerIdentity](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html) CLI command to validate that the Cloud9 IDE is using the correct IAM role.
 
 ```
-aws sts get-caller-identity --query Arn | grep eks-admin-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+aws sts get-caller-identity --query Arn | grep admin-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ```
 
 {{%expand "✍️ Get the IAM Role name from the AWS CLI" %}}
@@ -76,7 +77,7 @@ echo "export ROLE_NAME=${ROLE_NAME}" | tee -a ~/.bash_profile
 
 ```bash
 export CLUSTER_NAME=EKS-Cluster
-# export ROLE_NAME=eks-admin-role
+# export ROLE_NAME=admin-role
 
 echo "export ROLE_NAME=${CLUSTER_NAME}" | tee -a ~/.bash_profile
 echo "export ROLE_NAME=${ROLE_NAME}" | tee -a ~/.bash_profile
