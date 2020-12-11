@@ -201,7 +201,7 @@ function verify_prerequisites_resources() {
     _logger "[+] Verify ACCOUNT_ID & AWS_REGION"
     export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
     export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-    export ROLE_NAME="eks-admin-role"
+    export ROLE_NAME="admin-role"
     export CLUSTER_NAME="EKS-Cluster"
     test -n "$ACCOUNT_ID" && echo ACCOUNT_ID is "$ACCOUNT_ID" || echo ACCOUNT_ID is not set
     test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
@@ -219,8 +219,8 @@ function verify_prerequisites_resources() {
         which $command &>/dev/null && echo "[x] $command in path" || echo "[ ] $command NOT FOUND"
     done
 
-    _logger "[+] Validate the IAM role eks-admin-role"
-    aws sts get-caller-identity --query Arn | grep eks-admin-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
+    _logger "[+] Validate the IAM role admin-role"
+    aws sts get-caller-identity --query Arn | grep admin-role -q && echo "IAM role valid" || echo "IAM role NOT valid"
 }
 
 function install_cdk_microservices_labs() {
